@@ -1,6 +1,8 @@
 package introducionJava;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
 
 public class main {
@@ -19,17 +21,42 @@ public class main {
 		PrintStream ps = new PrintStream(System.out); 
 		PrintStream psErr = new PrintStream(System.err);
 		
-		ps.println("estamos todo bien");;
+		ps.println("estamos todo bien");
 		
 
 		try {
+			/*
 			int linea;
 			String palabra="";
 			while( (linea = System.in.read())  !=  13  )
 			{
 				palabra = palabra + (char)linea; 
 			}
-			ps.println( palabra );
+			*/
+			/*
+			 * %s   String
+			 * %n   int
+			 * %f   float
+			 * %d   double
+			 * %b   boolean
+			 
+			ps.printf( "La variable palabra:%s \n" , palabra );
+			*/
+			
+			InputStreamReader isr = new InputStreamReader( System.in );		
+			BufferedReader br = new BufferedReader( isr ); //equivalente al PrintStream
+			//BufferedReader br2 = new BufferedReader(   new InputStreamReader(System.in) );
+
+			/*
+			int linea2 = 0;
+			String palabra2="";
+			while( (linea2 = br.read())  !=  13  )
+			{
+				palabra2 = palabra2 + (char)linea2; 
+			}
+			*/
+			ps.printf( "Con readline:%s \n" , br.readLine() ); //lee toda la linea completa
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
