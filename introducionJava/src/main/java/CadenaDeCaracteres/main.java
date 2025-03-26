@@ -28,7 +28,7 @@ public class main {
 		// ['L','i','n','K','e','v','i','n']
 		palabra.split("K"); // vec[] => { "Lin" , "evin" } Lin evin
 		palabra.substring( 2 , 4 ); //LinKevin  -> nKev 
-		
+		palabra.
 		
 		//conversion de Enteros a texto y viceversa
 		//Tokenized
