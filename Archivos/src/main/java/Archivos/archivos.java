@@ -1,10 +1,13 @@
 package Archivos;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,12 +30,10 @@ public class archivos {
 		 * file.getAbsoluteFile();//te devuelve el archivo directamente file.getName();
 		 * file.getPath(); //devuelve la ruta de origen file.getParent();//devuelve el
 		 * directorio file.getTotalSpace();//devuelve la cantidad de bytes que pesa un
-		 * archivo file.isDirectory();//para saber si es una carpeta
-		 * 
-		 * file.isHidden();// file.isDirectory();// file.isFile();//
-		 * file.list();//devuelve un listado de strings file.listFiles();//devuelve
-		 * file.mkdir();//para crear carpetas file.renameTo(new
-		 * File("waa.txt"));//cambia el nombre
+		 * archivo file.isDirectory();//para saber si es una carpeta file.isHidden();
+		 * file.isFile();// file.list();//devuelve un listado de strings
+		 * file.listFiles();//devuelve file.mkdir();//para crear carpetas
+		 * file.renameTo(new File("waa.txt"));//cambia el nombre
 		 */
 		this.rutaFiles(file);// llama al método
 		this.crearFileConPrintStreamEasy(file);
@@ -68,8 +69,6 @@ public class archivos {
 			fs.append(("HAIII"));// es como un print, pero escribe en la posición del cursor
 			fs.flush();// limpia todo lo que hay en el canal
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			// to import Logger use the /util/ one
 			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
 		} finally { // se ejecuta independientemente si hubo o no un error
 			try {
@@ -78,13 +77,50 @@ public class archivos {
 				if (fos != null)
 					fos.close();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} // end try/catch
 		} // end try/catch/finally
 	}// end crearFileConPrintStreamEasy
 
+	/**
+	 * 
+	 * @param f
+	 */
 	public void crearFileConPrinter(File f) {
+		FileWriter fw = null; // usa buffered directo y ademas crea canales de comunicacion
+		PrintWriter pw = null; // es el escritor
+
+		try {
+			if (!f.exists()) {
+				try {
+					f.createNewFile();
+				} catch (IOException e) {
+					Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+				}
+			}
+
+			fw = new FileWriter(f);
+			pw = new PrintWriter(fw);
+
+			pw.print("Una linea");
+			pw.println("Nueva linea");
+			pw.write('d');// escribe
+			pw.append(("HAIII"));// es como un print, pero escribe en la posición del cursor
+			pw.flush();// limpia todo lo que hay en el canal
+		} catch (FileNotFoundException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		} catch (IOException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		} finally {
+			try {
+				if (pw != null)
+					pw.close();
+				if (fw != null)
+					fw.close();
+			} catch (IOException ex) {
+				Logger.getLogger(archivos.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}//finally
 
 	}
 
@@ -92,9 +128,34 @@ public class archivos {
 	 * @param f
 	 */
 	public void crearFileConBuffer(File f) {
-
+		FileWriter fw = null; 
+		BufferedWriter bw = null;//escritor
+		
+		try {
+			fw = new FileWriter(f , false); // true = append
+			bw = new BufferedWriter( fw );
+			
+			bw.append("ss");
+			bw.write('s');
+			bw.newLine();
+			bw.flush(); //opcional Buffered
+		} catch (IOException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		}finally {
+			try {
+				if( fw != null)
+					fw.close();
+				if( bw != null)
+					bw.close();
+			}catch(IOException e) {
+				Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+			}
+		}
+		
 	}
 
+	
+	
 	/**
 	 * Descripcion
 	 * 
@@ -105,6 +166,7 @@ public class archivos {
 	 */
 	public String LeerFileConBuffer(File f) {
 
+		return null;
 	}
 
 	public void leerFileCaracterAcaractet(File f) {
