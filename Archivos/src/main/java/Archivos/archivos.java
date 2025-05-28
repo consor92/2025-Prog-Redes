@@ -23,23 +23,29 @@ public class archivos {
 	 */
 	// throw delega el trycatch a quien está llamando el método
 	public archivos(String ruta) {
-		ps = new PrintStream(System.out);		
+		ps = new PrintStream(System.out);
 		// "c:\\user\\Redes-04\\omg.txt"
 		file = new File(ruta);// crea un nuevo archivo
 
-		/*
-		 * file.createNewFile(); file.delete(); file.deleteOnExit(); //borra el archivo
-		 * una vez terminado file.exists();//para ver si el archivo está o no está
-		 * file.getAbsoluteFile();//te devuelve el archivo directamente file.getName();
-		 * file.getPath(); //devuelve la ruta de origen file.getParent();//devuelve el
-		 * directorio file.getTotalSpace();//devuelve la cantidad de bytes que pesa un
-		 * archivo file.isDirectory();//para saber si es una carpeta file.isHidden();
-		 * file.isFile();// file.list();//devuelve un listado de strings
-		 * file.listFiles();//devuelve file.mkdir();//para crear carpetas
-		 * file.renameTo(new File("waa.txt"));//cambia el nombre
-		 */
-		//this.rutaFiles(file);// llama al método
-		//this.crearFileConPrintStreamEasy(file);
+		// file.createNewFile();
+		// file.delete();
+		// file.deleteOnExit(); //borra el archivo una vez terminado
+		// file.exists();//para ver si el archivo está o no está
+		// file.getAbsoluteFile();//te devuelve el archivo directamente
+		// file.getName();
+		// file.getPath(); //devuelve la ruta de origen
+		// file.getParent();//devuelve el directorio
+		// file.getTotalSpace();//devuelve la cantidad de bytes que pesa un archivo
+		// file.isDirectory();//para saber si es una carpeta
+		// file.isHidden();
+		// file.isFile();
+		// file.list();//devuelve un listado de strings
+		// file.listFiles();
+		// file.mkdir();//para crear carpetas
+		// file.renameTo(new File("waa.txt"));//cambia el nombre
+
+		// this.rutaFiles(file);// llama al método
+		// this.crearFileConPrintStreamEasy(file);
 	}
 
 	/**
@@ -87,7 +93,7 @@ public class archivos {
 
 	/**
 	 * 
-	 * @param f 
+	 * @param f
 	 */
 	public void crearFileConPrinter(File f) {
 		FileWriter fw = null; // usa buffered directo y ademas crea canales de comunicacion
@@ -123,7 +129,7 @@ public class archivos {
 			} catch (IOException ex) {
 				Logger.getLogger(archivos.class.getName()).log(Level.SEVERE, null, ex);
 			}
-		}//finally
+		} // finally
 
 	}
 
@@ -131,37 +137,33 @@ public class archivos {
 	 * @param f
 	 */
 	public void crearFileConBuffer(File f, String texto) {
-		FileWriter fw = null; 
-		BufferedWriter bw = null;//escritor
-		
+		FileWriter fw = null;
+		BufferedWriter bw = null;// escritor
+
 		try {
-			fw = new FileWriter(f , false); // true = append
-			bw = new BufferedWriter( fw );
-			
-			//bw.append("ss");
-			//bw.write('s');
+			fw = new FileWriter(f, false); // true = append
+			bw = new BufferedWriter(fw);
+
+			// bw.append("ss");
+			// bw.write('s');
 			bw.append(texto);
 			bw.newLine();
-			bw.flush(); //opcional Buffered
+			bw.flush(); // opcional Buffered
 		} catch (IOException e) {
 			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
-		}finally {
+		} finally {
 			try {
-				if( fw != null)
+				if (fw != null)
 					fw.close();
-				if( bw != null)
+				if (bw != null)
 					bw.close();
-			}catch(IOException e) {
+			} catch (IOException e) {
 				Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
 			}
 		}
-		
+
 	}
 
-	
-	
-	
-	
 	/**
 	 * Descripcion
 	 * 
@@ -173,62 +175,60 @@ public class archivos {
 	public String LeerFileConBuffer(File f) {
 		FileReader fr = null;
 		BufferedReader br = null;
-		
+
 		try {
 			fr = new FileReader(f);
-			br = new BufferedReader( fr );
-			
-			String line = "", texto = "";
-			while(  (line = br.readLine() ) != null )
-			{
-				texto.concat( line.concat("\n")  );
+			br = new BufferedReader(fr);
+
+			String line = "";
+			String texto = "";
+			while ((line = br.readLine()) != null) {		
+				texto = texto.concat(line);
 			}
-			
+
 			return texto;
 		} catch (FileNotFoundException e) {
 			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
 		} catch (IOException e) {
 			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
-		}finally {
+		} finally {
 			try {
-				if( fr != null)
+				if (fr != null)
 					fr.close();
-				if( br != null)
+				if (br != null)
 					br.close();
-			}catch(IOException e) {
+			} catch (IOException e) {
 				Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
 			}
 		}
-		
+
 		return null;
 	}
 
 	public String leerFileCaracterCaracter(File f) {
 		FileReader fr = null;
-		
-		try
-		{
+
+		try {
 			fr = new FileReader(f);
-			
-			int caracter , EOF = -1;
+
+			int caracter, EOF = -1;
 			String texto = "";
-			while( (caracter=fr.read()) != EOF ) {
-				
-				if( caracter == '\n' )
-				{
-					texto.concat("\n");
-				}else {
-					texto.concat( String.valueOf(caracter) );
+			while ((caracter = fr.read()) != EOF) {
+
+				if (caracter == '\n') {
+					texto = texto.concat("\n");
+				} else {
+					texto = texto.concat(String.valueOf(caracter));
 				}
 			}
 			return texto;
-		}catch(IOException e) {
+		} catch (IOException e) {
 			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
-		}finally {
+		} finally {
 			try {
-				if( fr != null)
+				if (fr != null)
 					fr.close();
-			}catch(IOException e) {
+			} catch (IOException e) {
 				Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
 			}
 		}
