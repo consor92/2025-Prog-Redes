@@ -1,9 +1,11 @@
 package Archivos;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -20,10 +22,11 @@ public class archivos {
 	 * Constructor
 	 */
 	// throw delega el trycatch a quien está llamando el método
-	public void archivos() {
-		ps = new PrintStream(System.out);
+	public archivos(String ruta) {
+		ps = new PrintStream(System.out);		
 		// "c:\\user\\Redes-04\\omg.txt"
-		file = new File("omg.txt");// crea un nuevo archivo
+		file = new File(ruta);// crea un nuevo archivo
+
 		/*
 		 * file.createNewFile(); file.delete(); file.deleteOnExit(); //borra el archivo
 		 * una vez terminado file.exists();//para ver si el archivo está o no está
@@ -35,8 +38,8 @@ public class archivos {
 		 * file.listFiles();//devuelve file.mkdir();//para crear carpetas
 		 * file.renameTo(new File("waa.txt"));//cambia el nombre
 		 */
-		this.rutaFiles(file);// llama al método
-		this.crearFileConPrintStreamEasy(file);
+		//this.rutaFiles(file);// llama al método
+		//this.crearFileConPrintStreamEasy(file);
 	}
 
 	/**
@@ -52,8 +55,8 @@ public class archivos {
 	 * @throws
 	 * @return
 	 */
-	public void rutaFiles(File f) {
-
+	public File getFiles() {
+		return this.file;
 	}
 
 	// con esto se puede empezar a escribir en el archivo
@@ -84,7 +87,7 @@ public class archivos {
 
 	/**
 	 * 
-	 * @param f
+	 * @param f 
 	 */
 	public void crearFileConPrinter(File f) {
 		FileWriter fw = null; // usa buffered directo y ademas crea canales de comunicacion
@@ -127,7 +130,7 @@ public class archivos {
 	/**
 	 * @param f
 	 */
-	public void crearFileConBuffer(File f) {
+	public void crearFileConBuffer(File f, String texto) {
 		FileWriter fw = null; 
 		BufferedWriter bw = null;//escritor
 		
@@ -135,8 +138,9 @@ public class archivos {
 			fw = new FileWriter(f , false); // true = append
 			bw = new BufferedWriter( fw );
 			
-			bw.append("ss");
-			bw.write('s');
+			//bw.append("ss");
+			//bw.write('s');
+			bw.append(texto);
 			bw.newLine();
 			bw.flush(); //opcional Buffered
 		} catch (IOException e) {
@@ -156,6 +160,8 @@ public class archivos {
 
 	
 	
+	
+	
 	/**
 	 * Descripcion
 	 * 
@@ -165,12 +171,68 @@ public class archivos {
 	 * @throws IOException
 	 */
 	public String LeerFileConBuffer(File f) {
-
+		FileReader fr = null;
+		BufferedReader br = null;
+		
+		try {
+			fr = new FileReader(f);
+			br = new BufferedReader( fr );
+			
+			String line = "", texto = "";
+			while(  (line = br.readLine() ) != null )
+			{
+				texto.concat( line.concat("\n")  );
+			}
+			
+			return texto;
+		} catch (FileNotFoundException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		} catch (IOException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		}finally {
+			try {
+				if( fr != null)
+					fr.close();
+				if( br != null)
+					br.close();
+			}catch(IOException e) {
+				Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+			}
+		}
+		
 		return null;
 	}
 
-	public void leerFileCaracterAcaractet(File f) {
-
+	public String leerFileCaracterCaracter(File f) {
+		FileReader fr = null;
+		
+		try
+		{
+			fr = new FileReader(f);
+			
+			int caracter , EOF = -1;
+			String texto = "";
+			while( (caracter=fr.read()) != EOF ) {
+				
+				if( caracter == '\n' )
+				{
+					texto.concat("\n");
+				}else {
+					texto.concat( String.valueOf(caracter) );
+				}
+			}
+			return texto;
+		}catch(IOException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		}finally {
+			try {
+				if( fr != null)
+					fr.close();
+			}catch(IOException e) {
+				Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+			}
+		}
+		return null;
 	}
 
 }

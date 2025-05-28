@@ -3,8 +3,9 @@ package Archivos;
 public class main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		archivos arch = new archivos("consorti.txt");
+		
+		arch.crearFileConBuffer(arch.getFiles(),"hola mundo");
 	}
 
 }

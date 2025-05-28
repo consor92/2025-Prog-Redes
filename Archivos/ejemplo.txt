@@ -1,0 +1,37 @@
+=== INICIO DEL TEXTO DE PRUEBA ===
+
+Línea 1: ¡Hola! Este es un archivo de prueba para trabajar con File en Java.
+Línea 2: Aquí encontrarás letras normales, letras acentuadas: á, é, í, ó, ú, ü, ñ, Ñ.
+Línea 3: También números: 0123456789, en secuencia y mezclados 9a8b7c6d5e4f3g2h1i0.
+Línea 4: Símbolos especiales: @ # $ % & * ( ) _ + = - { } [ ] | \ : ; " ' < > , . ? / ¡ ¿
+Línea 5: Saltos de línea, espacios múltiples,	y tabulaciones están presentes.
+Línea 6: Palabras con caracteres raros: café, piñata, niño, año, über, façade, crème brûlée.
+Línea 7: Caracteres Unicode y otros scripts:
+        Ω λ Д 中 漢 𐍈 𝄞 ♜ ♫ ♣ ☯ ☢ ☠ ♻ ✅ 🔥 🎉 🎲
+Línea 8: Texto con combinaciones extrañas:
+        ###@@@!!!$$$%%%^^^&&&***((( )))___+++===---|||\\\///;;;:::'''"""<<<>>>???
+Línea 9: Frases con mezcla de todo lo anterior:
+        "¿Qué pasó, amigo? — dijo él, mientras tomaba café a las 10:00 a.m."
+Línea 10: Más números en diferentes formatos: 1,234.56; 0xFF; 0b101010; 3.14159; -273.15°C
+Línea 11: Líneas en blanco siguen a continuación:
+
+
+
+
+Línea 12: Fin de la sección con espacios al final.   	 
+Línea 13: Texto con emojis: 😃🚀🌟🍕🎮🎲💡📚🔥
+Línea 14: Un poco de texto en varios idiomas:
+       English, Español, Français, Deutsch, 中文, Русский, العربية, हिन्दी, 日本語.
+Línea 15: Texto con URL y emails:
+       https://www.example.com, correo@ejemplo.com, ftp://ftp.servidor.net
+Línea 16: Fragmentos de código:
+       public static void main(String[] args) { System.out.println("Hola Mundo!"); }
+Línea 17: Cadenas con comillas y caracteres escapados:
+       "Esto es un \"texto\" con comillas y \\ barras invertidas."
+Línea 18: Código ASCII en texto:
+       ASCII chars: ! " # $ % & ' ( ) * + , - . / 0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+Línea 19: Caracteres de control (representados con símbolos):
+       [TAB]	[TAB][NEWLINE]
+Línea 20: Fin del archivo de prueba.
+
+=== FIN DEL TEXTO DE PRUEBA ===
