@@ -1,5 +1,11 @@
 package Archivos;
 
+/**
+ * Importaciones necesarias para la manipulación avanzada de archivos y flujos de entrada/salida,
+ * incluyendo clases para lectura y escritura con buffers, manejo de excepciones,
+ * impresión formateada, y gestión de colecciones para operaciones en memoria.
+ * También se incluyen utilidades para logging.
+ */
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -15,9 +21,33 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Clase 'archivos' que proporciona métodos para manipulación de archivos en Java.
+ * 
+ * Esta clase incluye funcionalidades para:
+ * <ul>
+ *   <li>Crear y escribir en archivos usando diferentes streams y buffers.</li>
+ *   <li>Leer archivos carácter por carácter o línea por línea.</li>
+ *   <li>Modificar archivos directamente o a través de estructuras de datos en memoria.</li>
+ * </ul>
+ * 
+ * Campos:
+ * <ul>
+ *   <li>{@code PrintStream ps} - Stream para imprimir texto, puede usarse para imprimir en consola o archivo.</li>
+ *   <li>{@code File file} - Representa el archivo sobre el cual se realizan las operaciones.</li>
+ * </ul>
+ * 
+ * Nota: La clase gestiona internamente excepciones relacionadas con IO y uso de streams.
+ * 
+ * @author [Tu Nombre]
+ * @version 1.0
+ * @since 2025
+ */
 public class archivos {
 
+    /** Flujo de salida para imprimir texto (por ejemplo, en consola) */
 	PrintStream ps;
+    /** Archivo asociado a la instancia para realizar operaciones */
 	File file;
 
 	/**
@@ -51,23 +81,28 @@ public class archivos {
 	}
 
 	/**
-	 * JavaDoc ESTE TEXTO NO TIENE NINGUNA ETIQUETA DE IDENTIFICACION. ESTO NO VA A
-	 * AAPARECER :( Tambien se puede agregar referencias a class o methodos o
-	 * atributos con la instruccion: { @ por ejemplo: {@code <html></html>} o usar
-	 * {@link String}
+	 * Devuelve el archivo asociado a este objeto.
 	 * 
-	 * @param f Este metodo recibe un archivo.
-	 * @see FlujoDeDatos.File.
+	 * JavaDoc ESTE TEXTO NO TIENE NINGUNA ETIQUETA DE IDENTIFICACION. ESTO NO VA A
+	 * APARECER :( También se pueden agregar referencias a clases, métodos o
+	 * atributos con la instrucción: {@code <html></html>} o usar {@link String}.
+	 * 
+	 * @return El objeto File representando el archivo.
 	 * @since v1.0
-	 * @exception
-	 * @throws
-	 * @return
 	 */
 	public File getFiles() {
 		return this.file;
 	}
 
-	// con esto se puede empezar a escribir en el archivo
+	/**
+	 * Escribe contenido en el archivo especificado usando un PrintStream.
+	 * Este método crea un flujo de salida para el archivo, escribe varias líneas
+	 * y caracteres, y asegura que los datos se escriban correctamente.
+	 * 
+	 * @param f Archivo donde se escribirá el contenido.
+	 * @throws FileNotFoundException Si el archivo no puede ser abierto para escritura.
+	 * @throws IOException Si ocurre un error al cerrar los flujos de salida.
+	 */
 	public void crearFileConPrintStreamEasy(File f) {
 		FileOutputStream fos = null;
 		PrintStream fs = null;
@@ -93,10 +128,11 @@ public class archivos {
 		} // end try/catch/finally
 	}// end crearFileConPrintStreamEasy
 
-	/**
-	 * 
-	 * @param f
-	 */
+/**
+ 	* Método para crear o escribir en un archivo usando un objeto Printer.
+ *
+ * @param f Archivo donde se realizará la operación.
+ */
 	public void crearFileConPrinter(File f) {
 		FileWriter fw = null; // usa buffered directo y ademas crea canales de comunicacion
 		PrintWriter pw = null; // es el escritor
@@ -136,7 +172,11 @@ public class archivos {
 	}
 
 	/**
-	 * @param f
+	 * Escribe texto en un archivo usando FileWriter y BufferedWriter.
+	 * El archivo se sobrescribe a menos que se cambie el modo append.
+	 *
+	 * @param f     Archivo donde se escribirá el texto.
+	 * @param texto Cadena de texto que se añadirá al archivo.
 	 */
 	public void crearFileConBuffer(File f, String texto) {
 		FileWriter fw = null;
@@ -167,12 +207,12 @@ public class archivos {
 	}
 
 	/**
-	 * Descripcion
-	 * 
+	 * Lee todo el contenido de un archivo usando BufferedReader y devuelve el texto completo.
+	 *
 	 * @param f un archivo al leer
-	 * @return Todo el texto leido.
-	 * @throws FileNotFoundException
-	 * @throws IOException
+	 * @return Todo el texto leído del archivo como una cadena.
+	 * @throws FileNotFoundException si el archivo no existe.
+	 * @throws IOException si ocurre un error durante la lectura.
 	 */
 	public String LeerFileConBuffer(File f) {
 		FileReader fr = null;
@@ -207,6 +247,13 @@ public class archivos {
 		return null;
 	}
 
+	/**
+	 * Lee el contenido de un archivo carácter por carácter y devuelve el texto completo.
+	 * Maneja saltos de línea adecuadamente y concatena los caracteres en una cadena.
+	 *
+	 * @param f Archivo desde donde se leerán los caracteres.
+	 * @return El contenido completo del archivo como una cadena, o null si ocurre un error.
+	 */	
 	public String leerFileCaracterCaracter(File f) {
 		FileReader fr = null;
 
@@ -237,7 +284,15 @@ public class archivos {
 		return null;
 	}
 
-	
+	/**
+	 * Modifica un archivo original creando un archivo temporal donde reemplaza
+	 * todas las ocurrencias de una cadena buscada por otra cadena dada.
+	 * Luego elimina el archivo original y renombra el temporal con el nombre del archivo original.
+	 *
+	 * @param archivoOriginal El archivo que será modificado.
+	 * @param buscar         La cadena que se busca en cada línea para ser reemplazada.
+	 * @param reemplazar     La cadena con la cual se reemplazarán las ocurrencias encontradas.
+	 */	
 	public void modificarArchivoTemporalLinea(File archivoOriginal, String buscar, String reemplazar)  {
 		File archTemp = new File( archivoOriginal.getAbsolutePath() + ".tmp" );
 		
@@ -269,6 +324,15 @@ public class archivos {
 		}	
 	}
 	
+	/**
+	 * Modifica el contenido de un archivo leyendo todas sus líneas en una LinkedList,
+	 * reemplazando en memoria las ocurrencias de una cadena dada, y luego escribiendo
+	 * el contenido modificado de nuevo en el archivo original.
+	 *
+	 * @param archivoOriginal El archivo que será leído y modificado.
+	 * @param buscar         La cadena que se desea buscar y reemplazar en el archivo.
+	 * @param reemplazar     La cadena que reemplazará las ocurrencias encontradas.
+	 */	
 	public void modificarArchivoConLinkedList(File archivoOriginal, String buscar, String reemplazar) {
 		List<String> textoCompleto = new LinkedList<>();
 		
