@@ -10,6 +10,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -236,5 +238,82 @@ public class archivos {
 	}
 
 	
+	public void modificarArchivoTemporalLinea(File archivoOriginal, String buscar, String reemplazar)  {
+		File archTemp = new File( archivoOriginal.getAbsolutePath() + ".tmp" );
+		
+		try (
+			BufferedReader br = new BufferedReader( new FileReader(archivoOriginal) );
+			BufferedWriter bw = new BufferedWriter( new FileWriter(archTemp) );
+			)
+		{
+			String linea = ""; String EOF = null;
+			while( (linea = br.readLine()) != EOF )
+			{
+				//la edicion necesaria
+				if( linea.contains(buscar) )
+				{
+					linea = linea.replace(buscar, reemplazar);
+				}
+				
+				bw.write(linea);
+				bw.newLine();
+			}
+			
+		if( !archivoOriginal.delete() )
+			throw new IOException("No se pudo borrar el archivo original");  
+			
+		if( !archTemp.renameTo(archivoOriginal) )
+			throw new IOException("No puedo renombrar el rchivo temporal.");
+		}catch (Exception e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		}	
+	}
 	
+	public void modificarArchivoConLinkedList(File archivoOriginal, String buscar, String reemplazar) {
+		List<String> textoCompleto = new LinkedList<>();
+		
+		//Leer archivo y volcar los datos en memoria VOLATIL (un array)
+		try(BufferedReader br = new BufferedReader(new FileReader(archivoOriginal)))
+		{
+			String lineas = ""; String EOF = null;
+			while( (lineas = br.readLine()) != EOF )
+			{
+				//puede tener logica para filtrar qué entra al Array o no
+				textoCompleto.add(lineas);
+			}
+		} catch (IOException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		} 
+		
+		// Modificar líneas que contengan el texto a buscar
+		//for completo linea a linea
+		for( int i = 0 ; i < textoCompleto.size() ; i++ )
+		{
+			//aca logica para modificar lo que necesitemos
+			if( textoCompleto.get(i).contains(buscar) )
+				textoCompleto.set(i, textoCompleto.get(i).replace(buscar,reemplazar));
+		}
+		
+		for( String linea : textoCompleto )
+		{
+			if( linea.contains(buscar))
+				textoCompleto.set(
+						textoCompleto.indexOf(linea), //(index)
+						linea.replace(buscar, reemplazar));//(datomodificado)
+		}
+		
+	    // Escribir de nuevo todo el contenido modificado en el archivo original
+		try(BufferedWriter bw = new BufferedWriter(new FileWriter(archivoOriginal)))
+		{
+			for( String linea : textoCompleto ){
+				bw.write(linea);
+				bw.newLine();
+			}
+		} catch (IOException e) {
+			Logger.getLogger(archivos.class.getName()).log(Level.WARNING, null, e);
+		}
+		
+	}
 }
+
+
