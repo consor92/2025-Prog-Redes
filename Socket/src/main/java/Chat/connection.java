@@ -21,7 +21,7 @@ public class connection {
 	private InetAddress direction;
 	protected DataOutputStream dosServer, dosClient;
 	
-	public connection( enumType type ) throws UnknownHostException, IOException
+	public connection( Utils.enumType type ) throws UnknownHostException, IOException
 	{
 		ps = new PrintStream( System.out );
 		direction = InetAddress.getByName(ip);
@@ -54,11 +54,6 @@ public class connection {
 	
 	
 	
-}
-
-enum enumType{
-	SERVER,
-	CLIENT
 }
 
 

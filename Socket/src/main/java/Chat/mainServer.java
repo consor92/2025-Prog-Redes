@@ -9,11 +9,11 @@ public class mainServer {
 
 	public static void main(String[] args) {
 		
-		try {
+		try ( Server servidor = new Server(Utils.enumType.SERVER) ){			
+			servidor.setIp("127.0.0.1");
+			servidor.setPort(2006);
 			
-			Server servidor = new Server( enumType.SERVER );
 			servidor.serverOn();
-			
 		} catch (UnknownHostException ex) {
             Logger.getLogger(mainServer.class.getName()).log(Level.SEVERE, null, ex);
 		} catch (IOException ex) {
