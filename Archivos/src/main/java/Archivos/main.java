@@ -17,6 +17,10 @@ public class main {
 		arch.crearFileConBuffer(arch.getFiles(),"hola mundo");
 		ps.println( arch.LeerFileConBuffer(arch.getFiles()) );
 		
+		arch.modificarArchivoTemporalLinea(arch.getFiles(), "hola", "chau");
+		
+		
+		
 		KeyPair claves =  RSAUtil.generarParRSA();
 		KeyPair claves2 = RSAUtil.generarParRSA();
 		SecretKey claveAES = RSAUtil.generarClaveAES();
