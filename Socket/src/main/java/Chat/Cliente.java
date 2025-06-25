@@ -69,5 +69,56 @@ public class Cliente extends Connection  {
 		}
 	}
 
-
+	public void sendFile(String ruta , DataOutputStream out , Socket sock )
+	{
+		File archivo = new File(ruta);
+		FileInputStream fis = null;
+		BufferedInputStream bi = null;
+		
+		BufferedOutputStream buffOutput = null;
+		
+		try {
+			if( archivo.exists() )
+			{
+				fis = new FileInputStream(archivo);
+				bi = new BufferedInputStream(fis);
+				buffOutput = new BufferedOutputStream(sock.getOutputStream());
+				
+				DecimalFormat df = new DecimalFormat("#.00");
+				float size = archivo.length();
+				ps.println("Se prepara el fichero:" 
+						+ archivo.getName() 
+						+ " / "
+						+ df.format(size) + "Kb");
+				
+				out.writeFloat(size);
+				Thread.sleep(100);
+				out.writeUTF( archivo.getName() );
+				Thread.sleep(100);
+				
+				byte buff[] = new byte[(int)size];
+				bi.read( buff );
+				for(int i=0;i<buff.length;i++) {
+					buffOutput.write( buff[i] );
+				}
+				
+				Thread.sleep(500);
+				ps.println("Se ah enviado el fichero");
+			}
+		}catch(UnknownHostException ex) {
+		
+		}catch(IOException ex) {
+			
+		}catch(InterruptedException ex) {
+			
+		}finally {
+			try {
+				buffOutput.close();
+				bi.close();
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
