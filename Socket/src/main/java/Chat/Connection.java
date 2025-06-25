@@ -8,7 +8,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-public class connection {
+public class Connection {
 		
 	private int port = 2006;
 	private String ip  = "127.0.0.1";
@@ -21,7 +21,7 @@ public class connection {
 	private InetAddress direction;
 	protected DataOutputStream dosServer, dosClient;
 	
-	public connection( Utils.enumType type ) throws UnknownHostException, IOException
+	public Connection( Utils.enumType type ) throws UnknownHostException, IOException
 	{
 		ps = new PrintStream( System.out );
 		direction = InetAddress.getByName(ip);

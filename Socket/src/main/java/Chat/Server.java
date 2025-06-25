@@ -1,7 +1,7 @@
 package Chat;
 
-import java.awt.Color;
 import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,9 +9,9 @@ import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Server  extends connection implements AutoCloseable{
+public class Server  extends Connection implements AutoCloseable{
 
-	private InputStreamReader disServer = null;
+	private DataInputStream disServer = null;
 	private BufferedReader br = null;    
     
 	public Server(Utils.enumType type) throws UnknownHostException, IOException {
@@ -19,30 +19,33 @@ public class Server  extends connection implements AutoCloseable{
 	}
 
 	public void serverOn() {
-		
 		try {
-			
-			ps.println(Utils.Colors.ANSI_BLUE+"Esperanco conexion de cliente ...."+Utils.Colors.ANSI_RESET);
+			ps.printf("");
+			ps.printf(Utils.Colors.ANSI_YELLOW+"Esperando conexion de cliente\n\tPort:%s\n"+Utils.Colors.ANSI_RESET, getPort() );
+
 			sockC = sockS.accept();
 			
-			ps.printf("%s - %s",
+			ps.printf("%s - %s \n",
 					sockC.getInetAddress().getHostAddress(),
 					sockC.getInetAddress().getHostName()
 					);
 			
 			dosClient = new DataOutputStream(sockC.getOutputStream());
-			disServer = new InputStreamReader(sockC.getInputStream());
-			br = new BufferedReader(disServer);
+			disServer = new DataInputStream(sockC.getInputStream());
 			
 			ps.println(Utils.Colors.ANSI_GREEN+"Cliente conectado con exito."+Utils.Colors.ANSI_RESET);
 			Thread.sleep( 200 );
 			ps.println(Utils.Colors.ANSI_RED+"Esperando mensaje del cliente ...."+Utils.Colors.ANSI_RESET);
-			
-			while( (msg = br.readLine() )  != null )
+				
+			while( !sockC.isClosed() && (msg = disServer.readUTF() )  != null )
 			{
 				ps.printf( Utils.Colors.ANSI_YELLOW+"\tMensaje: %s\n" +Utils.Colors.ANSI_RESET, msg );
+				
 				dosClient.writeUTF("ok");
 				dosClient.flush();
+				msg = "";
+				
+				//sockC.close();
 			}
 		}catch (IOException | InterruptedException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,13 +59,15 @@ public class Server  extends connection implements AutoCloseable{
 					disServer.close();
 				
 				dosClient.close();
-				sockS.close();
+				//sockS.close();
 			} catch (IOException ex) {
 	            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
 			}
 		}
 	}
 
+
+	
 	@Override
 	public void close() throws IOException {
 		sockC.close();
@@ -75,7 +80,5 @@ public class Server  extends connection implements AutoCloseable{
 		dosClient.close();
 		sockS.close();		
 	}
-	
-	
 	
 }
