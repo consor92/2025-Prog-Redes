@@ -12,7 +12,6 @@ public class mainServer {
 		try ( Server servidor = new Server(Utils.enumType.SERVER) ){			
 			servidor.setIp("127.0.0.1");
 			servidor.setPort(2006);
-			
 			servidor.serverOn();
 		} catch (UnknownHostException ex) {
             Logger.getLogger(mainServer.class.getName()).log(Level.SEVERE, null, ex);
