@@ -3,8 +3,6 @@ package Download;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-import javax.management.monitor.Monitor;
-
 public class main {
 
 	private static ThreadGroup grupo = new ThreadGroup("GrupoDescargas");
@@ -65,26 +63,7 @@ public class main {
 			t.start();
 		}
 		
-		
-		//otras tareas que puede ejecutar el MAIN
-		
-		
-		//Administrador de Hilos
-		MonitorThread monitor = new MonitorThread(grupo , listaHilos , Utils.coloresHilos);
-		monitor.start();
-		
-		//Esperar a que todas las tareas terminene para concluir el programa MAIN
-		for(Thread hilo : listaHilos)
-		{
-			try {
-				hilo.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		//aca cerramos el programa/MAIN
-		ps.println( "["  + Thread.currentThread().getName() + "] FIN MAIN. "  );
+		ps.println( "["  + Thread.currentThread().getName() + "] Liberando todos los recursos de descarga. "  );
 	}
 
 }
