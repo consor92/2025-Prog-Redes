@@ -55,7 +55,7 @@ class cli implements Runnable {
 			try {
 				msgRecibido = dis.readUTF();
 
-				ps.println("\n" + Utils.COLORES[1] + "El cliente " + this.nick + " envia:" + msgRecibido + "\n\t"
+				ps.println("\n" + Utils.COLORES[1] + "El cliente " + this.nick + " envia:" + msg + "\n\t"
 						+ " al cliente =>" + Utils.COLORES[2] + (cli.equals("") ? " Todos" : cli.toUpperCase()) + "\n"
 						+ Utils.RESET);
 

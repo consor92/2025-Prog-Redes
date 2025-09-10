@@ -63,7 +63,7 @@ public class Cliente {
 						msg = buff.readLine();
 
 						dosServidor.writeUTF(msg);
-						ps.print("\t->");
+						ps.print("/t->");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -79,7 +79,7 @@ public class Cliente {
 					 try {
 						msg = disServidor.readUTF();
 						ps.println( Utils.COLORES[0] + msg + Utils.RESET);
-						ps.println("\t ->");
+						ps.println("\t->");
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

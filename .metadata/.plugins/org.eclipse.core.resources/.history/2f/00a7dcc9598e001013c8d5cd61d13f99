@@ -1,9 +1,10 @@
 package SocketConThread;
 
-public class mainClient {
+public class mainServidor {
 
 	public static void main(String[] args) {
-		Cliente x = new Cliente();
+		// TODO Auto-generated method stub
+
 	}
 
 }
