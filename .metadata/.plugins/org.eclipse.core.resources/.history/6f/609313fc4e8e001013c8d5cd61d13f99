@@ -25,28 +25,13 @@ public class MonitorThread extends Thread {
 	@Override
 	public void run(){
 		Map<String,Boolean> completados  = new HashMap<>();
-		for(Thread  t : hilos) completados.put(t.getName(), false);
+		for()
 		
 		boolean activos = true;
 		while(activos)
 		{
-			activos = false;
-			 ps.println(color + "\n [MONITOR] Estado de los hilos (Grupo: " + grupo.getName() + ")" + Utils.RESET);
-			for(Thread t : hilos) {
-				Thread.State estado = t.getState();
+			for() {
 				
-				if(t.isAlive()) {
-					ps.println(color + "[MONITOR] " + t.getName() +
-                            " | Estado: " + estado +
-                            " | Prioridad: " + t.getPriority() + Utils.RESET);
-					activos=true;
-				}else {
-					if( completados.get(t.getName())) {
-						completados.put(t.getName(), true);
-						ps.println(color + "[MONITOR] " + t.getName() +
-                                " [####################] 100% " + Utils.RESET);
-					}
-				}
 			}
 			try {
 				Thread.sleep(1000);

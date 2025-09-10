@@ -1,9 +1,0 @@
-package Download;
-
-public class TareaThread extends Thread{
-
-	
-	
-	
-	
-}

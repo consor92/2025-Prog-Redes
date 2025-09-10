@@ -33,7 +33,7 @@ public class MonitorThread extends Thread {
 			activos = false;
 			 ps.println(color + "\n [MONITOR] Estado de los hilos (Grupo: " + grupo.getName() + ")" + Utils.RESET);
 			for(Thread t : hilos) {
-				Thread.State estado = t.getState();
+				Thread.State estado = t.getsState();
 				
 				if(t.isAlive()) {
 					ps.println(color + "[MONITOR] " + t.getName() +
