@@ -19,7 +19,7 @@ public class Servidor {
 	
 		ps.println("INICIANDO SERVIDOR");
 		HiloServidor serv = new HiloServidor();
-		serv.setName("SERVIDOR");
+		serv.setname("SERVIDOR");
 	
 		serv.start();
 	}
