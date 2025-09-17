@@ -7,6 +7,7 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.StringTokenizer;
 
 import Download.Utils;
 
@@ -55,9 +56,48 @@ class cli implements Runnable {
 			try {
 				msgRecibido = dis.readUTF();
 
+				if (msgRecibido.contains("&")) // cli : mens Seba:hacemos algo como ejeplo: jugar?
+				{
+					StringTokenizer token = new StringTokenizer(msgRecibido, "&");
+					cli = token.nextToken().trim().toLowerCase();
+					msg = token.nextToken().trim();
+				} else {
+					msg = msgRecibido.trim();
+					cli = "Todos";
+				}
+
 				ps.println("\n" + Utils.COLORES[1] + "El cliente " + this.nick + " envia:" + msgRecibido + "\n\t"
-						+ " al cliente =>" + Utils.COLORES[2] + (cli.equals("") ? " Todos" : cli.toUpperCase()) + "\n"
-						+ Utils.RESET);
+						+ " al cliente =>" + Utils.COLORES[2] + (cli.equals("Todos") ? " Todos" : cli.toUpperCase())
+						+ "\n" + Utils.RESET);
+
+				if (msgRecibido.startsWith("/")) {
+					switch (msgRecibido.substring(1, msgRecibido.length())) {
+					case "salir":
+						this.dis.close();
+						this.dos.close();
+						this.isConected = false;
+						this.sock.close();
+						Servidor.clientesConectados.remove(this);
+						ps.println(
+								Utils.COLORES[4] + "\tCliente " + this.nick + " se ah desconectado.\n" + Utils.RESET);
+						this.notificarClientes(false);
+						break;
+					}
+				}
+
+				for (cli c : Servidor.clientesConectados) {
+					if (msg.equals("") || cli.equals(""))
+						break;
+
+					if (cli.toLowerCase().equals(c.nick) && this.isConected) {
+						c.dos.writeUTF(this.nick + ":" + msg);
+						break;
+					} else if (cli.equals("Todos") && this.isConected
+							&& !c.nick.toLowerCase().equals(this.nick.toLowerCase())) {
+						c.dos.writeUTF(this.nick + ":" + msg);
+					}
+
+				}
 
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -65,6 +105,33 @@ class cli implements Runnable {
 		}
 
 	}
+
+	public void notificarClientes(boolean b) {
+		for (cli c : Servidor.clientesConectados) {
+			if (c.isConected && !c.nick.equals(this.nick)) {
+				try {
+					if (b) {
+						c.dos.writeUTF(
+								Utils.COLORES[6] 
+								+ "\t---" 
+								+ this.nick 
+								+ " se ah unido al chat---" 
+								+ Utils.RESET);
+					} else {
+						c.dos.writeUTF(
+								Utils.COLORES[0] 
+								+ "\t---" 
+								+ this.nick 
+								+ " se ah desconectado---" 
+								+ Utils.RESET);
+					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+
 }
 
 class HiloServidor extends Thread {
@@ -101,13 +168,13 @@ class HiloServidor extends Thread {
 				disCliente = new DataInputStream(sockAux.getInputStream());
 				dosCliente = new DataOutputStream(sockAux.getOutputStream());
 
-				System.out.println(Utils.COLORES[4] + "Creando un cliente... Esperano NickName" + Utils.RESET);
+				ps.println(Utils.COLORES[4] + "Creando un cliente... Esperano NickName" + Utils.RESET);
 
 				String ID = disCliente.readUTF();
 
 				cli newCliente = new cli(sockAux, ID, disCliente, dosCliente);
 
-				System.out.println(
+				ps.println(
 						Utils.COLORES[1] + "El cliente " + newCliente.nick + " accedio al servidor.\n" + Utils.RESET);
 
 				Servidor.clientesConectados.add(newCliente);

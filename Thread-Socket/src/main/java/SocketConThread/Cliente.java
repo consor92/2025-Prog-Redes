@@ -25,15 +25,19 @@ public class Cliente {
 	InetAddress IP = null;
 	int puerto = 7777;
 	Socket sock = null;
+	boolean isConected = false;
 
-	boolean sendNickname = true;
+	boolean sendNickname = false;
 
 	public Cliente() {
 		try {
 
 			IP = InetAddress.getByName("127.0.0.1");
 			sock = new Socket(IP, puerto);
-
+			
+			isConected = true;
+			sendNickname = true;
+			
 			disServidor = new DataInputStream(sock.getInputStream());
 			dosServidor = new DataOutputStream(sock.getOutputStream());
 
@@ -68,6 +72,13 @@ public class Cliente {
 						e.printStackTrace();
 					}
 				}
+				try {
+					isConected = false;
+					dosServidor.close();
+					sock.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}, "ENVIO");
 
@@ -75,7 +86,7 @@ public class Cliente {
 			@Override
 			public void run() {
 				String msg = "";
-				while (true) {
+				while (true && isConected) {
 					 try {
 						msg = disServidor.readUTF();
 						ps.println( Utils.COLORES[0] + msg + Utils.RESET);
@@ -84,6 +95,13 @@ public class Cliente {
 						e.printStackTrace();
 					}
 				}
+				try {
+					isConected = false;
+					disServidor.close();
+					sock.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}				
 			}
 		}, "RECIBIR");
 
