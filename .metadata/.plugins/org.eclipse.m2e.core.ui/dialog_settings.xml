@@ -44,12 +44,15 @@
 	</section>
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
+			<item value="probandoAPI"/>
 			<item value="ar.edu.et32"/>
 		</list>
 		<list key="name">
+			<item value="API"/>
 			<item value="Thread-Socket"/>
 		</list>
 		<list key="artifactId">
+			<item value="api"/>
 			<item value="Thread-Socket"/>
 			<item value="Socket"/>
 		</list>
