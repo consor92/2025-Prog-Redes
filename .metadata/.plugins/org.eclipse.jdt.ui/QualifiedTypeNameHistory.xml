@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="Chat.enumType"/>
-    <fullyQualifiedTypeName name="Chat.servidor"/>
-    <fullyQualifiedTypeName name="Chat.connection"/>
-    <fullyQualifiedTypeName name="Chat.Server"/>
-    <fullyQualifiedTypeName name="java.lang.AutoCloseable"/>
-    <fullyQualifiedTypeName name="java.awt.Color"/>
-    <fullyQualifiedTypeName name="Utils.Colors"/>
-    <fullyQualifiedTypeName name="Chat.Connection"/>
-    <fullyQualifiedTypeName name="Chat.Cliente"/>
-    <fullyQualifiedTypeName name="Utils.enumType"/>
     <fullyQualifiedTypeName name="java.util.logging.Level"/>
     <fullyQualifiedTypeName name="java.util.logging.Logger"/>
     <fullyQualifiedTypeName name="java.io.FileInputStream"/>
     <fullyQualifiedTypeName name="java.text.DecimalFormat"/>
     <fullyQualifiedTypeName name="java.nio.channels.Pipe.SourceChannel"/>
     <fullyQualifiedTypeName name="java.net.UnknownHostException"/>
-    <fullyQualifiedTypeName name="java.io.IOException"/>
     <fullyQualifiedTypeName name="javax.swing.JFrame"/>
     <fullyQualifiedTypeName name="java.awt.FileDialog"/>
     <fullyQualifiedTypeName name="java.io.File"/>
@@ -32,10 +21,8 @@
     <fullyQualifiedTypeName name="Download.TareaEjecutar"/>
     <fullyQualifiedTypeName name="javax.management.monitor.Monitor"/>
     <fullyQualifiedTypeName name="Download.MonitorThread"/>
-    <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.lang.ThreadGroup"/>
     <fullyQualifiedTypeName name="java.lang.Boolean"/>
-    <fullyQualifiedTypeName name="java.util.HashMap"/>
     <fullyQualifiedTypeName name="java.lang.Thread.State"/>
     <fullyQualifiedTypeName name="java.net.InetAddress"/>
     <fullyQualifiedTypeName name="java.io.InputStreamReader"/>
@@ -43,7 +30,6 @@
     <fullyQualifiedTypeName name="java.lang.Runnable"/>
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="java.lang.Thread"/>
     <fullyQualifiedTypeName name="java.net.Socket"/>
     <fullyQualifiedTypeName name="java.io.PrintStream"/>
     <fullyQualifiedTypeName name="java.lang.System"/>
@@ -60,4 +46,18 @@
     <fullyQualifiedTypeName name="javax.crypto.Cipher"/>
     <fullyQualifiedTypeName name="javax.crypto.spec.SecretKeySpec"/>
     <fullyQualifiedTypeName name="javax.crypto.spec.IvParameterSpec"/>
+    <fullyQualifiedTypeName name="com.google.gson.Gson"/>
+    <fullyQualifiedTypeName name="java.util.HashMap"/>
+    <fullyQualifiedTypeName name="java.nio.CharBuffer"/>
+    <fullyQualifiedTypeName name="java.util.Map"/>
+    <fullyQualifiedTypeName name="java.nio.channels.Selector"/>
+    <fullyQualifiedTypeName name="java.net.InetSocketAddress"/>
+    <fullyQualifiedTypeName name="NIO_Socket.NIO_Servidor"/>
+    <fullyQualifiedTypeName name="java.lang.Thread"/>
+    <fullyQualifiedTypeName name="java.io.IOException"/>
+    <fullyQualifiedTypeName name="java.util.Iterator"/>
+    <fullyQualifiedTypeName name="java.nio.channels.ServerSocketChannel"/>
+    <fullyQualifiedTypeName name="java.nio.channels.SocketChannel"/>
+    <fullyQualifiedTypeName name="java.nio.channels.SelectionKey"/>
+    <fullyQualifiedTypeName name="javax.print.attribute.standard.Severity"/>
 </qualifiedTypeNameHistroy>
